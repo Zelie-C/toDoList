@@ -37,33 +37,25 @@ function createTask(){
     removeTaskButton.classList.add("remove-button");
     removeTaskButton.innerText = "Supprimer";
     taskDiv.appendChild(removeTaskButton);
+    removeTaskButton.addEventListener("click", () => {
+      const parent = removeTaskButton.parentElement;
+      parent?.remove();
+    })
   });
 };
 
 createTask();
 
-document.querySelector("button")?.addEventListener("click", () => {
-  console.log("plouf");
-})
-
-/*function removeTask() {
-  const removeButton = document.querySelectorAll("remove-button");
-  const buttonsArray = Array.from(removeButton);
-  buttonsArray.forEach( button => {
-    button.addEventListener("click", () => {
-      const parentButton = button.parentElement;
-      if (parentButton) {console.log(parentButton);}
-    })
-  })
-};*/
 
 function clearList() {
   clearButton.addEventListener("click", () => {
     myStorage.clear();
+    
   })
 }
 
 
+
 /*getTask();*/
 clearList();
-/*removeTask();*/
+removeTask();
