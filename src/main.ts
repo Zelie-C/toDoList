@@ -13,12 +13,13 @@ function createTask(){
     count++;
     const taskDiv = document.createElement("div") as HTMLDivElement;
     taskDiv.classList.add("task-div");
-    taskDiv.classList.add(`${count}`)
     toDoDiv.appendChild(taskDiv);
     const checkboxElement = document.createElement("input") as HTMLInputElement;
     checkboxElement.setAttribute("type", "checkbox");
-    checkboxElement.classList.add("checkbox");
     taskDiv.appendChild(checkboxElement);
+    checkboxElement.addEventListener("click", () => {
+      taskDiv.classList.toggle("task-checked");
+    })
     let listElement = document.createElement("div") as HTMLDivElement;
     listElement.setAttribute("id", `task${count}`);
     myStorage.setItem(listElement.getAttribute("id") as string, myTask);
@@ -55,16 +56,7 @@ function isChecked(){
   }
 
 isChecked();
-/*function removeTask(){
-  let buttonsList = document.querySelectorAll("remove-button");
-  let buttonsArray = Array.from(buttonsList);
-  buttonsArray.forEach( button => button.addEventListener("click", () => {
-    let parentElement = button.parentElement;
-    parentElement?.remove();
-  }))
-}*/
 
 
-/*getTask();*/
 clearList();
 /*removeTask();*/

@@ -1,15 +1,56 @@
-li {
-  list-style-type: none;
+h1 {
+  margin: 3% 3% 4% 3%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+  color: rgb(80, 0, 111);
 }
+
+.add-task {
+  display: flex;
+  margin: 2% 2% 2% 6%;
+}
+
+#written-text {
+  margin-right: 1%;
+  padding: 0.5%;
+  border-radius: 0.4em;
+}
+
+button {
+  background-color: rgb(206, 135, 250);
+  margin-right: 1%;
+  border: rgb(206, 135, 250) 0.5em;
+  border-radius: 0.4em;
+}
+
+button:hover {
+  background-color: rgb(80, 0, 111);
+  color: white;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 .task-div {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  width: 50%;
+  width: 70%;
   border-top: 0.5px solid grey;
   border-bottom: 0.5px solid grey;
   margin: 1em;
   padding: 1em;
+}
+
+.task-checked {
+  background-color: rgb(201, 217, 234);
+  opacity: 0.5;
+  order: 1;
 }
