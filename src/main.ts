@@ -7,17 +7,6 @@ const clearButton = document.querySelector("#clear") as HTMLDivElement;
 const myStorage = window.localStorage;
 let count: number = 0;
 
-/*function getTask(){
-  for (let i = 0; i < myStorage.length; i++) {
-    const key = myStorage.key(i);
-    const value = myStorage.getItem(key);
-    let elementOfList = document.createElement("div") as HTMLElement;
-    elementOfList.innerText = value;
-    taskDiv.appendChild(elementOfList);
-  }
-
-}*/
-
 function createTask(){
   btnSubmit.addEventListener("click", () => {
     let myTask = writtenText.value;
@@ -32,8 +21,8 @@ function createTask(){
     taskDiv.appendChild(checkboxElement);
     let listElement = document.createElement("div") as HTMLDivElement;
     listElement.setAttribute("id", `task${count}`);
-    myStorage.setItem(listElement.getAttribute("id"), myTask);
-    listElement.innerText = myStorage.getItem(listElement?.getAttribute("id"));
+    myStorage.setItem(listElement.getAttribute("id") as string, myTask);
+    listElement.innerText = myStorage.getItem(listElement?.getAttribute("id") as string) as string;
     taskDiv.appendChild(listElement);
     const removeTaskButton = document.createElement("button") as HTMLButtonElement;
     removeTaskButton.classList.add("remove-button");
