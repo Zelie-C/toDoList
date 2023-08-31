@@ -23,6 +23,7 @@ function createTask(){
     let listElement = document.createElement("div") as HTMLDivElement;
     listElement.setAttribute("id", `task${count}`);
     myStorage.setItem(listElement.getAttribute("id") as string, myTask);
+    writtenText.value = " ";
     listElement.innerText = myStorage.getItem(listElement?.getAttribute("id") as string) as string;
     taskDiv.appendChild(listElement);
     const removeTaskButton = document.createElement("button") as HTMLButtonElement;
