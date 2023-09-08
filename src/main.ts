@@ -3,13 +3,20 @@ import './style.css'
 const btnSubmit = document.querySelector("#submit") as HTMLButtonElement;
 const writtenText = document.querySelector("#written-text") as HTMLInputElement;
 const toDoDiv = document.querySelector(".tasks-list") as HTMLElement;
-const clearButton = document.querySelector("#clear") as HTMLDivElement;
+// const clearButton = document.querySelector("#clear") as HTMLDivElement;
 const myStorage = window.localStorage;
 let count: number = 0;
+
+async function task(value: string) {
+  const response = await fetch(`http://localhost:3002/test/${value}`)
+  const message = await response.text();
+  console.log(message);
+}
 
 function createTask(){
   btnSubmit.addEventListener("click", () => {
     let myTask = writtenText.value;
+    task(myTask);
     count++;
     const taskDiv = document.createElement("div") as HTMLDivElement;
     taskDiv.classList.add("task-div");
@@ -41,12 +48,12 @@ function createTask(){
 
 createTask();
 
-function clearList() {
-  clearButton.addEventListener("click", () => {
-    myStorage.clear();
+// function clearList() {
+//   clearButton.addEventListener("click", () => {
+//     myStorage.clear();
 
-  })
-}
+//   })
+// }
 
 function isChecked(){
   let checkboxList = document.querySelectorAll("checkbox");
@@ -59,5 +66,5 @@ function isChecked(){
 isChecked();
 
 
-clearList();
+// clearList();
 /*removeTask();*/
