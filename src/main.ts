@@ -45,18 +45,35 @@ async function deleteTask(parentCheckbox: HTMLDivElement){
 async function reloadTasks(){
   const response = await fetch(`http://localhost:3002/getall`);
   const message = await response.text();
-  let messageArray: string[] = JSON.parse(message);
-  for (let i = 0; i <= messageArray.length; i++){
-
+  let messageArray: {id: number; nomTache: string; status: boolean}[] = JSON.parse(message);
+  console.log(messageArray)
+  for (const tache of messageArray) {
+    let taskElement: HTMLElement = document.createElement("p")
+    taskElement.innerText = tache.nomTache;
     const taskDiv = document.createElement("div") as HTMLDivElement;
     taskDiv.classList.add("task-div");
+    taskDiv.setAttribute("id", tache.nomTache)
+    
     toDoDiv.appendChild(taskDiv);
     const checkboxElement = document.createElement("input") as HTMLInputElement;
     checkboxElement.setAttribute("type", "checkbox");
+    if (tache.status === true) {
+      taskDiv.classList.add("task-checked")
+    }
     taskDiv.appendChild(checkboxElement);
-    Object.keys(messageArray).forEach(key => taskDiv.setAttribute("id", messageArray[key]))
+    taskDiv.appendChild(taskElement)
+    const removeTaskButton = document.createElement("button") as HTMLButtonElement;
+    removeTaskButton.classList.add("remove-button");
+    removeTaskButton.innerText = "Supprimer";
+    taskDiv.appendChild(removeTaskButton)
+    removeTaskButton.addEventListener("click", () => {
+      const parent = removeTaskButton.parentElement as HTMLDivElement;
+      deleteTask(parent)
+      parent?.remove();
+    })
+    console.log(tache.nomTache, tache.status)
   }
-  console.log(messageArray);
+ 
 }
 
 
@@ -110,6 +127,8 @@ function createTask(){
     writtenText.value = "";
   });
 };
+
+
 
 
 createTask();
