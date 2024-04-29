@@ -1,16 +1,19 @@
 import './style.css'
+import 'dotenv/config'
+import ImportMetaEnv from "src/vite-env.d.ts"
 
+const serverAdress = ImportMetaEnv.VITE_SERVER_ADRESS as string
 const btnSubmit = document.querySelector("#submit") as HTMLButtonElement;
 const writtenText = document.querySelector("#written-text") as HTMLInputElement;
 const toDoDiv = document.querySelector(".tasks-list") as HTMLElement;
 const deleteBtn = document.querySelector("#delete") as HTMLButtonElement;
-
+console.log(serverAdress)
 let count: number = 0;
 
 reloadTasks();
 
 async function task(value: string, taskContainer: HTMLDivElement) {
-  const response = await fetch(`http://localhost:3002/todo/${value}`, {
+  const response = await fetch(`${serverAdress}/todo/${value}`, {
     method: "POST"})
   const message = await response.text();
   let taskElement = document.createElement("p") as HTMLDivElement;
@@ -20,7 +23,7 @@ async function task(value: string, taskContainer: HTMLDivElement) {
 
 async function checked(divContainer: HTMLDivElement){
   let textElementValue = divContainer.getAttribute("id");
-  const response = await fetch(`http://localhost:3002/true/${textElementValue}`, {
+  const response = await fetch(`${serverAdress}/true/${textElementValue}`, {
     method: "PUT"})
   const message = await response.text();
   console.log(message);
@@ -28,7 +31,7 @@ async function checked(divContainer: HTMLDivElement){
 
 async function unchecked(parentCheckbox: HTMLDivElement){
   let textElementValue = parentCheckbox.getAttribute("id");
-  const response = await fetch(`http://localhost:3002/false/${textElementValue}`, {
+  const response = await fetch(`${serverAdress}/false/${textElementValue}`, {
     method: "PUT"})
   const message = await response.text();
   console.log(message);
@@ -36,14 +39,14 @@ async function unchecked(parentCheckbox: HTMLDivElement){
 
 async function deleteTask(parentCheckbox: HTMLDivElement){
   let textElementValue = parentCheckbox.getAttribute("id");
-  const response = await fetch(`http://localhost:3002/delete/${textElementValue}`, {
+  const response = await fetch(`${serverAdress}/delete/${textElementValue}`, {
     method: "DELETE"})
   const message = await response.text();
   console.log(message);
 }
 
 async function reloadTasks(){
-  const response = await fetch(`http://localhost:3002/getall`);
+  const response = await fetch(`${serverAdress}/getall`);
   const message = await response.text();
   let messageArray: {id: number; nomTache: string; status: boolean}[] = JSON.parse(message);
   console.log(messageArray)
@@ -80,7 +83,7 @@ async function reloadTasks(){
 
 
 async function deleteTasks(){
-  const response = await fetch('http://localhost:3002/removeall', {
+  const response = await fetch(`${serverAdress}/removeall`, {
     method: "DELETE"});
   const message = await response.text();
   console.log(message)
